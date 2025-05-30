@@ -45,6 +45,10 @@ class Server:
             return []
         return data[start:end]
 
+    def indexed_dataset(self):
+    """Returns the dataset as a dictionary with indices as keys."""
+        return {i: item for i, item in enumerate(self.dataset())}
+
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """Retrieves info about a page from a given index and with a
         specified size.
