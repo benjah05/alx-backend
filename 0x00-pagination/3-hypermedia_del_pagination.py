@@ -34,6 +34,17 @@ class Server:
 
         return self.__dataset
 
+    def indexed_dataset(self) -> Dict[int, List]:
+        """Dataset indexed by sorting position, starting at 0
+        """
+        if self.__indexed_dataset is None:
+            dataset = self.dataset()
+            truncated_dataset = dataset[:1000]
+            self.__indexed_dataset = {
+                i: dataset[i] for i in range(len(dataset))
+            }
+        return self.__indexed_dataset
+
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """Retrieves a page of data.
         """
@@ -44,10 +55,6 @@ class Server:
         if start > len(data):
             return []
         return data[start:end]
-
-    def indexed_dataset(self):
-        """Returns the dataset as a dictionary with indices as keys."""
-        return {i: item for i, item in enumerate(self.dataset())}
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """Retrieves info about a page from a given index and with a
